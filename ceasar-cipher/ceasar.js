@@ -19,6 +19,8 @@ class Ceasar {
     }
 
     encrypt(message){
+        // encrypt will take in a message and return the encrypted message using
+        // the shift set as the class attribute
         let array = message.toUpperCase().split('')
         let filterArray = array.filter( ele => this.letters.includes(ele) || ele === " ");
 
@@ -33,6 +35,8 @@ class Ceasar {
     }
 
     decrypt(message, shift = this.shift){
+        // dencrypt will take in an encrypted message and return the original
+        // message using the shift set as the class attribute
         let array = message.toUpperCase().split('')
 
         let decryptArray = array.map(letter => {
@@ -50,6 +54,8 @@ class Ceasar {
     }
 
     crackCipher(message){
+        // crackCipher will console log an encryped message for each possible
+        // shift, using the decrypt method as a helper function
         for(let i = 1; i <=26; i++){
             let crack = this.decrypt(message, i);
             console.log(`With shift of ${i}: "${crack}"`)
