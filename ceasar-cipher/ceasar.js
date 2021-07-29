@@ -1,6 +1,9 @@
+// For more info on the Ceasar Cipher (or Shift Cipher) check out the below link
+// https://en.wikipedia.org/wiki/Caesar_cipher
+
 class Ceasar {
-// class to encrypt and decrypt ceaser cipher messages based off a shift, and brute force hack
-// them
+// class to encrypt and decrypt ceaser cipher messages based off a shift, and
+// brute force hack them
     constructor(shift){
         this.shift = shift;
         this.letters = ["A", "B", "C", "D", "E", "F", "G",
