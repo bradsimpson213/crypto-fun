@@ -1,8 +1,8 @@
-// For more info on the Ceasar Cipher (or Shift Cipher) check out the below link
+// For more info on the Caesar Cipher (or Shift Cipher) check out the below link
 // https://en.wikipedia.org/wiki/Caesar_cipher
 
-class Ceasar {
-// class to encrypt and decrypt ceaser cipher messages based off a shift, and
+class Caesar {
+// class to encrypt and decrypt caesar cipher messages based off a shift, and
 // brute force hack them
     constructor(shift){
         this.shift = shift;
@@ -66,7 +66,7 @@ class Ceasar {
     }
 }
 
-ceaser1 = new Ceasar(4);
-console.log(ceaser1.encrypt("how is it going"));
-console.log(ceaser1.decrypt("LSA MW MX KSMRK"));
-ceaser1.crackCipher("LSA MW MX KSMRK")
+caesar1 = new Caesar(4);
+console.log(caesar1.encrypt("how is it going"));
+console.log(caesar1.decrypt("LSA MW MX KSMRK"));
+caesar1.crackCipher("LSA MW MX KSMRK")

@@ -4,24 +4,32 @@
 class Affine {
     // class to encrypt and decrypt Affine cipher messages based off a multiple
     // and a shift, and brute force hack them.  Shift should be a function!
-    constructor(shiftMultipler, shiftAddend){
-        this.shiftMultipler = shiftMultipler;
+    constructor(shiftMultiplier, shiftAddend){
+        this.shiftMultiplier = shiftMultiplier;
         this.shiftAddend = shiftAddend;
+        this.coprimes = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
         this.letters = ["A", "B", "C", "D", "E", "F", "G",
                         "H", "I", "J", "K", "L", "M", "N",
                         "O", "P", "Q", "R", "S", "T", "U",
                         "V", "W", "X", "Y", "Z"]
+        if (!this.coprimes.includes(this.shiftMultiplier)){
+            throw new Error("The shift multiplier must be a coprime with 26!")
+        }
     }
 
     getShift() {
         // returns a text representation of the shift function
-        return `Value * ${this.shiftMultipler} + ${this.shiftAddend}`;
+        return `Value * ${this.shiftMultiplier} + ${this.shiftAddend}`;
     }
 
-    setShift(multipler, addend) {
-        // takes in a multipler and addend to set the new shift 
-        this.shiftMultipler = multipler;
-        this.shiftAddend = addend;
+    setShift(multiplier, addend) {
+        // takes in a multipler and addend to set the new shift
+        if (!this.coprimes.includes(multiplier)){
+            throw new Error("The shift multiplier must be a coprime with 26!")
+        } else {
+            this.shiftMultiplier = multiplier;
+            this.shiftAddend = addend % 26;
+        }
     }
 
     encrypt(message){
@@ -35,7 +43,7 @@ class Affine {
                 return " ";
             } 
             let letterIndex = this.letters.indexOf(letter);
-            let shift = (((this.shiftMultipler * letterIndex) + this.shiftAddend) % 26);
+            let shift = (((this.shiftMultiplier * letterIndex) + this.shiftAddend) % 26);
             console.log(shift);
             return this.letters[shift];
         });
@@ -45,8 +53,7 @@ class Affine {
     decrypt(message){
         // dencrypt will take in an encrypted message and return the original
         // message using the shift set as the class attribute
-        let devisor = this.shiftMultipler;
-        let subtrahend = this.shiftAddend;
+      
         let array = message.toUpperCase().split('')
 
         let decryptArray = array.map(letter => {
@@ -54,11 +61,12 @@ class Affine {
                 return " ";
             } 
             let letterIndex = this.letters.indexOf(letter)
-            let letterShift = (((letterIndex - subtrahend) / devisor));
+            let letterShift = ((Math.pow(this.shiftMultiplier, -1)) * (letterIndex - this.shiftAddend)) % 26;
+            
+            // if (letterShift < 0) {
+            //     letterShift = 26 + letterShift;
+            // } 
             console.log(letterShift)
-            if (letterShift < 0) {
-                letterShift = 26 + letterShift;
-            } 
             return this.letters[letterShift];
         });
         return decryptArray.join("");
@@ -72,5 +80,5 @@ class Affine {
 
 
 const affine1 = new Affine(3, 2);
-console.log(affine1.encrypt("ABCDEFGHIGHLKNOPQRSTUVWXYZ"));
-console.log(affine1.decrypt("CFILORUXAUXJGPSVYBEHKNQTWZ"));
+console.log(affine1.encrypt("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+console.log(affine1.decrypt("CFILORUXADGJMPSVYBEHKNQTWZ"));
