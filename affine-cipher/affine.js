@@ -43,9 +43,8 @@ class Affine {
                 return " ";
             } 
             let letterIndex = this.letters.indexOf(letter);
-            let shift = (((this.shiftMultiplier * letterIndex) + this.shiftAddend) % 26);
-            console.log(shift);
-            return this.letters[shift];
+            console.log(this.shiftMultiplier * letterIndex + this.shiftAddend)
+            return this.letters[((this.shiftMultiplier * letterIndex + this.shiftAddend)) % 26];
         });
     return encryptArray.join("")
     }
@@ -53,15 +52,22 @@ class Affine {
     decrypt(message){
         // dencrypt will take in an encrypted message and return the original
         // message using the shift set as the class attribute
-      
-        let array = message.toUpperCase().split('')
+        let multiplierInverse = 1
+	
+        for (let i = 1; i <= 25; i++) {
+            if ( (this.shiftMultiplier * i) % 26 == 1 ) { 
+                multiplierInverse = i;
+             }
+        }
 
+        let array = message.toUpperCase().split('')
+       
         let decryptArray = array.map(letter => {
             if (letter === " ") {
                 return " ";
             } 
             let letterIndex = this.letters.indexOf(letter)
-            let letterShift = ((Math.pow(this.shiftMultiplier, -1)) * (letterIndex - this.shiftAddend)) % 26;
+            let letterShift = (multiplierInverse * (letterIndex + 26 - this.shiftAddend)) % 26;
             
             // if (letterShift < 0) {
             //     letterShift = 26 + letterShift;
