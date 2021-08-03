@@ -47,10 +47,7 @@ class Caesar {
                 return " ";
             } 
             let letterIndex = this.letters.indexOf(letter)
-            let letterShift = letterIndex - shift
-            if (letterShift < 0) {
-                letterShift = 26 + letterShift;
-            } 
+            let letterShift = (letterIndex - shift) % 26
             return this.letters[letterShift];
         });
         return decryptArray.join("");
