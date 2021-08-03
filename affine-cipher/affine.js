@@ -82,7 +82,10 @@ class Affine {
     }
 
     crackCipher(message){
-        
+        let array = message.toUpperCase().split('')
+        let filterArray = array.filter( ele => ele !== " ");
+        let testData = this.sortLetters(filterArray);
+        console.log(testData);
     }
 
     sortLetters(message){
@@ -111,3 +114,4 @@ console.log(affine1.encrypt("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
 console.log(affine1.decrypt("CFILORUXADGJMPSVYBEHKNQTWZ"));
 console.log(affine1.encrypt('The quick brown fox jumps expertly over the lazy red dog'))
 console.log(affine1.decrypt("HXO YKAIG FBSQP RST DKMVE OTVOBHJW SNOB HXO JCZW BOL LSU"));
+console.log(affine1.crackCipher("HXO YKAIG FBSQP RST DKMVE OTVOBHJW SNOB HXO JCZW BOL LSU"))
